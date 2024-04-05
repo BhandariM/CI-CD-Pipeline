@@ -6,7 +6,7 @@ pipeline {
     }
 parameters{
     choice(name:'VERSION', choices:['1.1', '1.2', '1.3'], description:'')
-    // booleanParam(name:'executeTest', defaultValue:true, description:'')
+    booleanParam(name:'executeTest', defaultValue:true, description:'')
 }
     stages {
              stage('Git Checkout') {
