@@ -1,6 +1,13 @@
 pipeline {
     agent any
-
+    environment{
+        ENV = 'QA'
+        SERVER_CREDS = credentials('my-pipeline')
+    }
+parameters{
+    choice(name:'VERSION', choices:['1.1', '1.2', '1.3'], description:'')
+    // booleanParam(name:'executeTest', defaultValue:true, description:'')
+}
     stages {
              stage('Git Checkout') {
             steps {
@@ -10,7 +17,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'building the application..'
-                // sh "npm build"
+                     echo "building ${ENV}"
+                    //  sh " ${ENV}"
             }
         }
       stage('NPM Install') {
@@ -20,6 +28,11 @@ pipeline {
             }
         }
      stage('Test') {
+        when{
+            expression{
+                parameters.executeTest
+            }
+        }
             steps {
                 echo 'testing the application..'
             }
@@ -28,6 +41,8 @@ pipeline {
      stage('Deploy') {
             steps {
               echo 'deploying the application..'
+                     sh "${SERVER_CREDS}"
+         
             }
         }
 
