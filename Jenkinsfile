@@ -27,16 +27,16 @@ parameters{
                 // sh "npm install"
             }
         }
-     stage('Test') {
-        when{
-            expression{
-                parameters.executeTest
-            }
-        }
-            steps {
-                echo 'testing the application..'
-            }
-        }
+    //  stage('Test') {
+    //     when{
+    //         expression{
+    //             params.executeTest
+    //         }
+    //     }
+    //         steps {
+    //             echo 'testing the application..'
+    //         }
+    //     }
 
      stage('Deploy') {
             steps {
